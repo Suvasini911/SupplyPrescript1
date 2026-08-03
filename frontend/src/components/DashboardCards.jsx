@@ -53,3 +53,5 @@ function DashboardCards() {
 }
 
 export default DashboardCards;
+
+// Dashboard statistics cards
