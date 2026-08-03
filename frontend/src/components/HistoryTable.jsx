@@ -84,3 +84,5 @@ function HistoryTable() {
 }
 
 export default HistoryTable;
+
+// Improved history table formatting
