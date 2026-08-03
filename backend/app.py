@@ -113,3 +113,12 @@ def history():
     conn.close()
 
     return rows
+
+
+    # FastAPI application initialization
+
+# Load trained ML model
+
+# Prediction endpoint
+
+# Save decision endpoint
