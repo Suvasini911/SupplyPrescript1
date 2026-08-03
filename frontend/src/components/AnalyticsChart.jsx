@@ -52,3 +52,5 @@ function AnalyticsChart() {
 }
 
 export default AnalyticsChart;
+
+// Added analytics chart title styling
