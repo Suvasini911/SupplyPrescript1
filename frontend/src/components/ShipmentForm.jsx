@@ -98,3 +98,5 @@ function ShipmentForm({ setPrediction, setRecommendations }) {
 }
 
 export default ShipmentForm;
+
+// Shipment prediction form
