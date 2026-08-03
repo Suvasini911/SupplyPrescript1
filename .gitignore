@@ -1,0 +1,9 @@
+venv/
+venv313/
+node_modules/
+__pycache__/
+*.pyc
+*.pkl
+*.db
+zip.zip
+.env
