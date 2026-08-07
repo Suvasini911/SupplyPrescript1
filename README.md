@@ -1,16 +1,20 @@
 # 🚚 SupplyPrescript AI
 
-SupplyPrescript AI is an AI-powered supply chain shipment risk prediction system.
+## Overview
+SupplyPrescript AI is an AI-powered supply chain optimization system.
 
 ## Features
-
-- Predict shipment delay risk using Machine Learning
-- AI-based shipment recommendations
-- Decision history stored in SQLite
+- Shipment delay prediction
+- AI recommendations
+- Decision history
 - Analytics dashboard
-- React + FastAPI architecture
 
 ## Tech Stack
+- React
+- FastAPI
+- Python
+- SQLite
+- Machine Learning
 
 ### Frontend
 - React
