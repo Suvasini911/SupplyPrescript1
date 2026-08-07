@@ -1,5 +1,3 @@
-// #AI Powered Supply Chain Decision Support System
-
 import { useState } from "react";
 
 import DashboardCards from "../components/DashboardCards";
@@ -72,6 +70,16 @@ function Dashboard() {
       >
         🚚 SupplyPrescript AI Dashboard
       </h1>
+
+      <p
+  style={{
+    color: "#9CA3AF",
+    marginTop: "-10px",
+    marginBottom: "20px",
+  }}
+>
+  AI Powered Supply Chain Decision Support System
+</p>
 
       <DashboardCards />
 
