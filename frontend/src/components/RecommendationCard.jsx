@@ -23,7 +23,9 @@ function RecommendationCard({ recommendations, onSave }) {
               marginTop: "15px",
             }}
           >
-            <h3>{item.title}</h3>
+            <h3 style={{ color: "#22c55e" }}>
+  {item.title}
+</h3>
 
             <p>{item.description}</p>
 
