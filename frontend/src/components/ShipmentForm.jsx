@@ -76,8 +76,8 @@ function ShipmentForm({ setPrediction, setRecommendations }) {
       <br /><br />
 
       <button onClick={predict}>
-        Predict Shipment
-      </button>
+  Predict Shipment
+</button>
 
       <h3 style={{ marginTop: "20px" }}>
         Prediction:
