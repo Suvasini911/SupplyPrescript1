@@ -5,11 +5,14 @@ import ShipmentForm from "../components/ShipmentForm";
 import RecommendationCard from "../components/RecommendationCard";
 import HistoryTable from "../components/HistoryTable";
 import AnalyticsChart from "../components/AnalyticsChart";
+import DecisionROI from "../components/DecisionROI";
+import DecisionFeedback from "../components/DecisionFeedback";
 
 function Dashboard() {
   const [recommendations, setRecommendations] = useState([]);
   const [prediction, setPrediction] = useState("");
   const [shipmentId, setShipmentId] = useState("");
+  const [roiRefresh, setRoiRefresh] = useState(0);
 
   const saveDecision = async (item) => {
     try {
@@ -23,10 +26,11 @@ function Dashboard() {
           },
 
           body: JSON.stringify({
-            shipment_id: shipmentId || Date.now().toString(),
-            prediction: prediction,
-            action: item.title,
-          }),
+    shipment_id: shipmentId,
+    prediction: prediction,
+    action: item.title,
+    predicted_cost: item.cost,
+}),
         }
       );
 
@@ -83,6 +87,11 @@ function Dashboard() {
       <HistoryTable />
 
       <AnalyticsChart />
+      <DecisionFeedback
+  onEvaluated={() => setRoiRefresh((value) => value + 1)}
+/>
+
+<DecisionROI key={roiRefresh} />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import pandas as pd
 import joblib
 
 from optimizer import get_recommendations
+from evaluation import evaluate_decision, get_decision_roi
 
 app = FastAPI()
 
@@ -86,18 +87,21 @@ def save_decision(data: dict):
 
     cursor.execute("""
         INSERT INTO decisions
-        (shipment_id, prediction, action)
-        VALUES (?, ?, ?)
-    """,(
+        (shipment_id, prediction, action, predicted_cost)
+        VALUES (?, ?, ?, ?)
+    """, (
         data["shipment_id"],
         data["prediction"],
-        data["action"]
+        data["action"],
+        data["predicted_cost"]
     ))
 
     conn.commit()
     conn.close()
 
-    return {"message":"Decision Saved Successfully ✅"}
+    return {
+        "message": "Decision Saved Successfully ✅"
+    }
 
 @app.get("/history")
 def history():
@@ -114,6 +118,24 @@ def history():
 
     return rows
 
+
+@app.post("/evaluate-decision")
+def evaluate(data: dict):
+
+    decision_id = data["decision_id"]
+    actual_cost = float(data["actual_cost"])
+
+    result = evaluate_decision(
+        decision_id,
+        actual_cost
+    )
+
+    return result
+
+@app.get("/decision-roi")
+def decision_roi():
+
+    return get_decision_roi()
 
     # FastAPI application initialization
 
