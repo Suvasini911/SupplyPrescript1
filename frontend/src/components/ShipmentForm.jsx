@@ -1,7 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 
-function ShipmentForm({ setPrediction, setRecommendations }) {
+function ShipmentForm({
+  setPrediction,
+  setRecommendations,
+  setShipmentId,
+}) {
   const [form, setForm] = useState({
     scheduled_days: 4,
     benefit_per_order: 35.5,
@@ -29,20 +33,24 @@ function ShipmentForm({ setPrediction, setRecommendations }) {
   const predict = async () => {
     try {
       const res = await axios.post(
-      "http://127.0.0.1:8000/predict",
-      form
-    );
+        "http://127.0.0.1:8000/predict",
+        form
+      );
 
-    // Update ShipmentForm
-    setResult(res.data.prediction_text);
+      // Generate a unique shipment ID for this prediction
+      const newShipmentId = "SHIP-" + Date.now();
 
-    // Update Dashboard
-    setPrediction(res.data.prediction_text);
-    setRecommendations(res.data.recommendations);
+      // Update ShipmentForm
+      setResult(res.data.prediction_text);
 
-  } catch (err) {
-    console.error(err);
-    alert("Prediction Failed");
+      // Update Dashboard
+      setPrediction(res.data.prediction_text);
+      setRecommendations(res.data.recommendations);
+      setShipmentId(newShipmentId);
+
+    } catch (err) {
+      console.error(err);
+      alert("Prediction Failed");
     }
   };
 
@@ -73,11 +81,12 @@ function ShipmentForm({ setPrediction, setRecommendations }) {
         onChange={handleChange}
       />
 
-      <br /><br />
+      <br />
+      <br />
 
       <button onClick={predict}>
-  Predict Shipment
-</button>
+        Predict Shipment
+      </button>
 
       <h3 style={{ marginTop: "20px" }}>
         Prediction:
@@ -98,5 +107,3 @@ function ShipmentForm({ setPrediction, setRecommendations }) {
 }
 
 export default ShipmentForm;
-
-// Shipment prediction form
