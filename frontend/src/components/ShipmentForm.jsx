@@ -4,7 +4,6 @@ import axios from "axios";
 function ShipmentForm({
   setPrediction,
   setRecommendations,
-  setShipmentId,
 }) {
   const [form, setForm] = useState({
     scheduled_days: 4,
@@ -37,19 +36,15 @@ function ShipmentForm({
         form
       );
 
-      // Generate a unique shipment ID for this prediction
-      const newShipmentId = "SHIP-" + Date.now();
-
       // Update ShipmentForm
       setResult(res.data.prediction_text);
 
       // Update Dashboard
       setPrediction(res.data.prediction_text);
       setRecommendations(res.data.recommendations);
-      setShipmentId(newShipmentId);
 
     } catch (err) {
-      console.error(err);
+      console.error("Prediction error:", err);
       alert("Prediction Failed");
     }
   };

@@ -7,15 +7,24 @@ import HistoryTable from "../components/HistoryTable";
 import AnalyticsChart from "../components/AnalyticsChart";
 import DecisionROI from "../components/DecisionROI";
 import DecisionFeedback from "../components/DecisionFeedback";
+import ContinuousLearning from "../components/ContinuousLearning";
+
 
 function Dashboard() {
+
   const [recommendations, setRecommendations] = useState([]);
+
   const [prediction, setPrediction] = useState("");
-  const [shipmentId, setShipmentId] = useState("");
+
+  const [learning, setLearning] = useState(null);
+
   const [roiRefresh, setRoiRefresh] = useState(0);
 
+
   const saveDecision = async (item) => {
+
     try {
+
       const response = await fetch(
         "http://127.0.0.1:8000/save-decision",
         {
@@ -26,25 +35,39 @@ function Dashboard() {
           },
 
           body: JSON.stringify({
-    shipment_id: shipmentId,
-    prediction: prediction,
-    action: item.title,
-    predicted_cost: item.cost,
-}),
+
+            shipment_id:
+              "SHIP-" + Date.now(),
+
+            prediction: prediction,
+
+            action: item.title,
+
+            predicted_cost: item.cost
+
+          }),
         }
       );
+
 
       const data = await response.json();
 
       alert(data.message);
 
+
     } catch (err) {
+
       console.error(err);
+
       alert("Save Failed");
+
     }
+
   };
 
+
   return (
+
     <div
       style={{
         maxWidth: "1200px",
@@ -52,6 +75,7 @@ function Dashboard() {
         padding: "20px",
       }}
     >
+
       <h1
         style={{
           textAlign: "center",
@@ -60,6 +84,7 @@ function Dashboard() {
       >
         🚚 SupplyPrescript AI Dashboard
       </h1>
+
 
       <p
         style={{
@@ -71,29 +96,74 @@ function Dashboard() {
         AI Powered Supply Chain Decision Support System
       </p>
 
+
+      {/* Dashboard Summary */}
+
       <DashboardCards />
+
+
+      {/* Shipment Prediction */}
 
       <ShipmentForm
         setPrediction={setPrediction}
         setRecommendations={setRecommendations}
-        setShipmentId={setShipmentId}
       />
+
+
+      {/* AI Recommendations */}
 
       <RecommendationCard
         recommendations={recommendations}
         onSave={saveDecision}
       />
 
+
+      {/* Decision History */}
+
       <HistoryTable />
 
-      <AnalyticsChart />
-      <DecisionFeedback
-  onEvaluated={() => setRoiRefresh((value) => value + 1)}
-/>
 
-<DecisionROI key={roiRefresh} />
+      {/* Analytics */}
+
+      <AnalyticsChart />
+
+
+      {/* Week 4 Continuous Learning */}
+
+      <ContinuousLearning
+        learning={learning}
+      />
+
+
+      {/* Week 3 Decision Feedback */}
+
+      <DecisionFeedback
+        onEvaluated={(data) => {
+
+          setLearning(
+            data.continuous_learning
+          );
+
+          setRoiRefresh(
+            (value) => value + 1
+          );
+
+        }}
+      />
+
+
+      {/* Decision ROI */}
+
+      <DecisionROI
+        key={roiRefresh}
+      />
+
+
     </div>
+
   );
+
 }
+
 
 export default Dashboard;
