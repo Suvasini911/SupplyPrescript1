@@ -1,14 +1,31 @@
 from scipy.optimize import linprog
 
 
-# Business constraint
-# Maximum budget allowed for a high-risk shipment
 MAX_BUDGET = 15000
+
+
+def optimize_action(actions, objective):
+    """Select one action using linear programming."""
+
+    result = linprog(
+        c=objective,
+        A_ub=[[action["cost"] for action in actions]],
+        b_ub=[MAX_BUDGET],
+        A_eq=[[1, 1, 1]],
+        b_eq=[1],
+        bounds=[(0, 1)] * len(actions),
+        method="highs"
+    )
+
+    if result.success:
+        return actions[result.x.argmax()]
+
+    return None
 
 
 def get_recommendations(delay_risk):
 
-    # If shipment is low risk, no optimization is required
+    # If shipment is low risk
     if delay_risk == 0:
         return [
             {
@@ -16,13 +33,11 @@ def get_recommendations(delay_risk):
                 "description": "Shipment is expected to arrive on time.",
                 "cost": 0,
                 "delivery_days": 0,
-                "risk": "None"
+                "risk": "None",
+                "optimization": "Normal Operation"
             }
         ]
 
-    # ---------------------------------------------------------
-    # Available actions
-    # ---------------------------------------------------------
     actions = [
         {
             "title": "Use Air Freight",
@@ -34,67 +49,56 @@ def get_recommendations(delay_risk):
         },
         {
             "title": "Switch to Secondary Supplier",
-            "description": "Alternative supplier with moderate cost and delivery time.",
+            "description": "Alternative supplier with a balanced cost and delivery time.",
             "cost": 8000,
             "delivery_days": 5,
             "risk": "Medium",
             "risk_score": 2
         },
         {
-            "title": "Delay Product Launch",
-            "description": "Avoid additional transportation cost but has higher business risk.",
-            "cost": 0,
-            "delivery_days": 14,
+            "title": "Use Standard Shipping",
+            "description": "Lower-cost option with a longer delivery time.",
+            "cost": 3000,
+            "delivery_days": 10,
             "risk": "High",
             "risk_score": 3
         }
     ]
 
-    # ---------------------------------------------------------
-    # Generate 3 optimized alternatives
-    # ---------------------------------------------------------
+    # 1. Fastest delivery
+    fastest_objective = [
+        action["delivery_days"]
+        for action in actions
+    ]
+
+    # 2. Lowest cost
+    lowest_cost_objective = [
+        action["cost"]
+        for action in actions
+    ]
+
+    # 3. Balanced cost + delivery
+    balanced_objective = [
+        (action["delivery_days"] / 10)
+        + (action["cost"] / 15000)
+        for action in actions
+    ]
 
     objectives = [
-        ("Fastest Delivery", 1.0, 0.1),
-        ("Lowest Cost", 0.1, 1.0),
-        ("Balanced Option", 0.5, 0.5)
+        ("Fastest Delivery", fastest_objective),
+        ("Lowest Cost", lowest_cost_objective),
+        ("Balanced Option", balanced_objective)
     ]
 
     recommendations = []
 
-    for objective_name, delivery_weight, cost_weight in objectives:
+    for optimization_name, objective in objectives:
 
-        # Objective:
-        # minimize delivery time + cost
-        objective = [
-            delivery_weight * action["delivery_days"]
-            + cost_weight * (action["cost"] / 10000)
-            for action in actions
-        ]
+        selected = optimize_action(actions, objective)
 
-        # Constraint:
-        # total selected action cost must be <= maximum budget
-        budget_constraint = [
-            action["cost"] for action in actions
-        ]
-
-        result = linprog(
-            c=objective,
-            A_ub=[budget_constraint],
-            b_ub=[MAX_BUDGET],
-            A_eq=[[1, 1, 1]],
-            b_eq=[1],
-            bounds=[(0, 1), (0, 1), (0, 1)],
-            method="highs"
-        )
-
-        if result.success:
-
-            selected_index = result.x.argmax()
-            selected_action = actions[selected_index].copy()
-
-            selected_action["optimization"] = objective_name
-
-            recommendations.append(selected_action)
+        if selected:
+            recommendation = selected.copy()
+            recommendation["optimization"] = optimization_name
+            recommendations.append(recommendation)
 
     return recommendations
