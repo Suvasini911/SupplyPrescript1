@@ -1,375 +1,428 @@
 # 🚚 SupplyPrescript AI
 
-## Overview
+## AI-Powered Supply Chain Decision Support System
 
-SupplyPrescript AI is an AI-powered supply chain decision-support system.
+SupplyPrescript AI is a data-driven supply chain decision-support system that predicts shipment delay risk, provides actionable recommendations, evaluates executed decisions, calculates decision ROI, and supports continuous model learning.
 
-The system uses historical supply-chain data to analyze shipment information, predict shipment delay risk using machine learning, and provide recommendations to help users make better supply-chain decisions.
+The project was developed as the **Month 1 Data Analytics Internship Project**, covering Weeks 1–4.
 
 ---
 
-## Business Problem
+## 🎯 Project Overview
 
-Shipment delays can affect customer satisfaction, operational efficiency, and business costs.
+Supply-chain operations can be affected by shipment delays, unexpected costs, and inefficient decisions.
 
-SupplyPrescript AI addresses this problem by analyzing historical shipment and order data to:
+SupplyPrescript AI uses historical supply-chain data and machine learning to help users:
 
-- Identify shipment delay patterns
 - Predict shipment delay risk
-- Provide actionable recommendations
-- Allow users to execute recommended decisions
-- Store executed decisions for future reference
-- Display shipment analytics and decision history
+- Generate supply-chain recommendations
+- Execute and record decisions
+- Compare predicted and actual costs
+- Measure decision performance
+- Automatically retrain the model when significant discrepancies occur
 
 ---
 
-## Project Objectives
+## 📅 Project Progress
 
-The main objectives of SupplyPrescript AI are:
+### Week 1 — Data Cleaning
 
-1. Analyze historical supply-chain data.
-2. Clean and prepare the dataset for analysis.
-3. Perform exploratory data analysis (EDA).
-4. Build a machine-learning based shipment delay-risk prediction system.
-5. Generate recommendations based on prediction results.
-6. Provide an interactive dashboard for users.
-7. Store executed decisions using SQLite.
-8. Display decision history and analytics.
+- Loaded and explored the raw supply-chain dataset
+- Identified missing and unnecessary data
+- Cleaned and prepared the dataset
+- Created a cleaned dataset for further analysis
 
----
-
-# 📊 Dataset
-
-The project uses a supply-chain dataset containing information related to:
-
-- Shipment duration
-- Scheduled shipment duration
-- Product price
-- Order quantity
-- Sales
-- Customer information
-- Product information
-- Delivery risk
-- Order information
-- Profit information
-
-### Dataset Files
+Notebook:
 
 ```text
-dataset/
-├── supply_chain_data.csv
-└── cleaned_supply_chain_data.csv
-📌 Week 1 — Data Preparation
-
-During Week 1, the dataset was loaded and prepared for further analysis.
-
-Data Preparation Tasks
-Loaded the dataset using Pandas
-Inspected the dataset structure
-Checked the number of rows and columns
-Inspected column names
-Checked data types
-Checked for missing values
-Checked for duplicate records
-Removed duplicate records where applicable
-Standardized column names
-Created a cleaned dataset
-Data Cleaning Notebook
 notebooks/01_Data_Cleaning.ipynb
-Data Cleaning Workflow
-Raw Dataset
-     ↓
-Data Ingestion
-     ↓
-Dataset Inspection
-     ↓
-Missing Value Check
-     ↓
-Duplicate Check
-     ↓
-Data Type Check
-     ↓
-Data Cleaning
-     ↓
-Cleaned Dataset
-📈 Week 2 — Exploratory Data Analysis
+````
 
-During Week 2, Exploratory Data Analysis (EDA) was performed on the cleaned dataset.
+---
 
-Statistical Analysis
+### Week 2 — Exploratory Data Analysis
 
-The following statistical measures were analyzed:
+Performed exploratory analysis to understand:
 
-Descriptive statistics
-Mean
-Median
-Standard deviation
-Data Analysis
+* Shipment and delivery patterns
+* Order quantity
+* Product price
+* Sales and benefits
+* Shipping modes
+* Markets
+* Order regions
+* Delivery risk
 
-The analysis included:
+Notebook:
 
-Distribution of product prices
-Comparison of scheduled and actual shipping duration
-Outlier analysis
-Correlation analysis
-Shipping delay analysis
-Visualizations
-
-The following visualizations were created:
-
-Product price distribution histogram
-Scheduled vs actual shipping duration scatter plot
-Boxplot for outlier analysis
-Feature correlation matrix
-Shipping delay distribution
-EDA Notebook
+```text
 notebooks/02_EDA.ipynb
-Shipping Delay Calculation
+```
 
-Shipping delay was calculated using:
+---
 
-Shipping Delay = Actual Shipping Days - Scheduled Shipping Days
+### Week 3 — Decision Support & Feedback
 
-This analysis helps identify shipment delay patterns and provides a foundation for the machine-learning prediction stage.
+The system was extended from simple prediction to a complete decision-support workflow.
 
-🤖 Machine Learning
+#### Shipment Prediction
 
-SupplyPrescript AI uses a trained machine-learning model to predict shipment delay risk.
+The user enters shipment information through the React dashboard.
 
-Prediction Workflow
-Shipment Details
-       ↓
-Data Preprocessing
-       ↓
-Machine Learning Model
-       ↓
-Delay Risk Prediction
-       ↓
-Recommendation Engine
-       ↓
-Business Recommendation
+The XGBoost model predicts:
 
-The model predicts whether a shipment has:
-
+```text
 High Delay Risk
+```
+
+or
+
+```text
 Low Delay Risk
-💡 Recommendation System
+```
 
-After the shipment risk is predicted, the system generates recommendations based on the prediction.
+#### AI Recommendations
 
-The recommendation system helps the user decide what action should be taken for the shipment.
+Based on the prediction, the system provides possible actions such as:
 
-The user can review the recommendation and execute the selected decision.
+* Use Air Freight
+* Use Standard Shipping
+* Switch to Secondary Supplier
+* Proceed Normally
 
-💾 Decision Storage
+Each recommendation contains information such as cost, delivery time, and risk.
 
-SupplyPrescript AI uses SQLite to store executed decisions.
+#### Decision Execution
 
-The workflow is:
+Users can execute a selected recommendation.
 
-Prediction
-    ↓
-Recommendation
-    ↓
-Execute Decision
-    ↓
-SQLite Database
-    ↓
-Decision History
+The decision is stored in the SQLite database.
 
-The saved decisions can later be retrieved and displayed in the dashboard.
+#### Decision Feedback
 
-📊 Dashboard
+The system allows the user to enter the actual cost after a decision.
 
-The React dashboard provides an interactive interface for the complete workflow.
+It compares:
 
-Dashboard Features
-Shipment input form
-Shipment delay prediction
-AI recommendations
-Execute Decision functionality
-Decision history
-Analytics visualization
-Shipment-risk information
-🔄 Complete Application Workflow
-User enters shipment details
-          ↓
-React Frontend
-          ↓
-FastAPI Backend
-          ↓
-Data Preprocessing
-          ↓
-Machine Learning Model
-          ↓
-Delay Risk Prediction
-          ↓
-Recommendation Engine
-          ↓
-User Executes Decision
-          ↓
-SQLite Database
-          ↓
-Decision History
-          ↓
-Analytics Dashboard
-🛠️ Technology Stack
-Frontend
-React
-Vite
-Axios
-JavaScript
-CSS
-Backend
-FastAPI
-Python
-SQLite
-Pandas
-Scikit-learn
-Joblib
-Data Analysis
-Pandas
-NumPy
-Matplotlib
-Seaborn
-Machine Learning
-Scikit-learn
-Joblib
-Version Control
-Git
-GitHub
-📁 Project Structure
+```text
+Predicted Cost
+       vs
+Actual Cost
+```
+
+and calculates:
+
+* Cost Difference
+* Outcome
+* Evaluation Status
+
+#### Decision ROI
+
+The dashboard provides:
+
+* Total Decisions
+* Positive Decisions
+* Positive Rate
+* Average Cost Difference
+
+---
+
+### Week 4 — Continuous Learning
+
+A continuous-learning mechanism was added to the decision workflow.
+
+After a decision is evaluated, the system calculates the cost discrepancy.
+
+The configured retraining threshold is:
+
+```text
+20%
+```
+
+If the discrepancy reaches or exceeds the threshold, the XGBoost model is automatically retrained using the historical supply-chain data.
+
+### Workflow
+
+```text
+Decision Evaluation
+        ↓
+Calculate Cost Discrepancy
+        ↓
+Compare with 20% Threshold
+        ↓
+Significant Discrepancy?
+       / \
+     YES  NO
+      ↓    ↓
+ Retrain  Continue
+  Model
+      ↓
+Updated Model
+```
+
+A test case produced:
+
+```text
+Predicted Cost = $8,000
+Actual Cost    = $1,000
+Discrepancy    = 87.5%
+```
+
+Since:
+
+```text
+87.5% > 20%
+```
+
+the system automatically triggered XGBoost retraining.
+
+The retraining process reported a new model accuracy of:
+
+```text
+69.16%
+```
+
+The result is displayed in the frontend through the **Continuous Learning** section.
+
+---
+
+# 🤖 Machine Learning
+
+The project uses an **XGBoost** model for shipment delay-risk prediction.
+
+### Prediction Features
+
+The model uses shipment-related features including:
+
+* Scheduled shipment days
+* Benefit per order
+* Sales per customer
+* Category ID
+* Order quantity
+* Product price
+* Shipping mode
+* Market
+* Order region
+
+---
+
+# 🖥️ Dashboard Features
+
+The React dashboard provides:
+
+* 📦 Shipment prediction
+* 🤖 AI recommendations
+* 📋 Decision history
+* 📊 Analytics
+* 💰 Decision ROI
+* 🔄 Decision feedback
+* 🧠 Continuous learning
+
+---
+
+# 🔄 Complete System Workflow
+
+```text
+Historical Supply Chain Data
+            ↓
+       Data Cleaning
+            ↓
+      Exploratory Analysis
+            ↓
+       ML Prediction
+            ↓
+    AI Recommendations
+            ↓
+      Execute Decision
+            ↓
+       Store Decision
+            ↓
+      Actual Cost Input
+            ↓
+     Decision Evaluation
+            ↓
+       Decision ROI
+            ↓
+    Discrepancy Detection
+            ↓
+ Automatic Model Retraining
+```
+
+---
+
+# 🛠️ Technology Stack
+
+### Data Analytics & Machine Learning
+
+* Python
+* Pandas
+* NumPy
+* Scikit-learn
+* XGBoost
+* Joblib
+
+### Backend
+
+* FastAPI
+* Pydantic
+* SQLite
+
+### Frontend
+
+* React
+* JavaScript
+* Axios
+
+### Development
+
+* VS Code
+* Git
+* GitHub
+
+---
+
+# 📁 Project Structure
+
+```text
 SupplyPrescript/
 │
 ├── backend/
 │   ├── app.py
 │   ├── database.py
 │   ├── optimizer.py
-│   ├── predict.py
-│   ├── train_model.py
+│   ├── evaluation.py
+│   ├── continuous_learning.py
 │   ├── model.pkl
 │   ├── encoder.pkl
-│   ├── supplyprescript.db
-│   └── requirements.txt
+│   └── supplyprescript.db
 │
 ├── dataset/
 │   ├── supply_chain_data.csv
 │   └── cleaned_supply_chain_data.csv
 │
+├── frontend/
+│   └── src/
+│       ├── components/
+│       └── pages/
+│
 ├── notebooks/
 │   ├── 01_Data_Cleaning.ipynb
 │   └── 02_EDA.ipynb
 │
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│   └── vite.config.js
-│
-├── screenshots/
-│
-├── README.md
-└── .gitignore
-🚀 How to Run the Project
-1. Backend Setup
+└── README.md
+```
 
-Open a terminal and navigate to the backend folder:
+---
 
+# 🚀 How to Run
+
+## Backend
+
+Open a terminal:
+
+```powershell
 cd backend
+```
 
-Activate the Python virtual environment if required.
+Activate the virtual environment:
 
-Then start the FastAPI server:
+```powershell
+..\venv\Scripts\Activate.ps1
+```
 
-uvicorn app:app --reload
+Run FastAPI:
 
-The backend will run at:
+```powershell
+python -m uvicorn app:app --reload
+```
 
+Backend:
+
+```text
 http://127.0.0.1:8000
-2. Frontend Setup
+```
 
-Open another terminal and navigate to the frontend folder:
+---
 
+## Frontend
+
+Open another terminal:
+
+```powershell
 cd frontend
+```
 
-Install the required packages:
+Run:
 
-npm install
-
-Start the React development server:
-
+```powershell
 npm run dev
+```
 
-The frontend will normally run at:
+Open the localhost URL shown by Vite.
 
-http://localhost:5173
-🧪 Data Analysis Notebooks
-Data Cleaning
+---
 
-The 01_Data_Cleaning.ipynb notebook contains:
+# 🗄️ Database
 
-Dataset loading
-Dataset inspection
-Data type analysis
-Missing value checking
-Duplicate checking
-Data cleaning
-Cleaned dataset generation
-Exploratory Data Analysis
+SQLite is used to store decision information.
 
-The 02_EDA.ipynb notebook contains:
+The decision records include:
 
-Descriptive statistics
-Mean calculation
-Median calculation
-Standard deviation
-Outlier analysis
-Histogram
-Scatter plot
-Correlation matrix
-Shipping delay analysis
-📌 Current Implementation Status
-Week 1
-✅ Dataset selection
-✅ Data ingestion
-✅ Dataset inspection
-✅ Data type analysis
-✅ Missing value analysis
-✅ Duplicate analysis
-✅ Data cleaning
-✅ Cleaned dataset generation
-Week 2
-✅ Exploratory Data Analysis
-✅ Descriptive statistics
-✅ Mean analysis
-✅ Median analysis
-✅ Standard deviation analysis
-✅ Outlier analysis
-✅ Histogram visualization
-✅ Scatter plot visualization
-✅ Correlation analysis
-✅ Shipping delay analysis
-Application
-✅ React dashboard
-✅ FastAPI backend
-✅ Machine-learning prediction
-✅ Recommendation system
-✅ SQLite decision storage
-✅ Decision history
-✅ Analytics visualization
-🎯 Future Improvements
+* Decision ID
+* Shipment ID
+* Prediction
+* Action
+* Predicted Cost
+* Actual Cost
+* Cost Difference
+* Outcome
+* Evaluation Status
 
-The project can be further improved by:
+---
 
-Improving the machine-learning model
-Adding more advanced predictive features
-Improving recommendation optimization
-Adding more dashboard analytics
-Improving UI/UX
-Adding additional business metrics
-Improving model evaluation and monitoring
-👩‍💻 Author
+# 📊 Project Outcome
 
-Suvasini 
+SupplyPrescript AI demonstrates a complete data-driven decision-support cycle:
 
-Computer Science & Engineering
+```text
+Data
+ ↓
+Analysis
+ ↓
+Prediction
+ ↓
+Recommendation
+ ↓
+Decision
+ ↓
+Feedback
+ ↓
+Evaluation
+ ↓
+Learning
+```
+
+The project extends a traditional ML prediction system by connecting predictions with actual decision outcomes and using significant discrepancies to trigger model retraining.
+
+---
+
+# 🔮 Future Scope
+
+* Real-time shipment tracking
+* Live logistics API integration
+* Advanced cost optimization
+* Improved recommendation algorithms
+* Model performance monitoring
+* Cloud deployment
+* User authentication
+* Advanced supply-chain analytics
+
+---
+
+## 👩‍💻 Project
+
+**SupplyPrescript AI**
+
+**AI-Powered Supply Chain Decision Support System**
+
+**Data Analytics Internship — Month 1 Project**
