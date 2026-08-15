@@ -60,21 +60,42 @@ function ShipmentForm({
     >
       <h2>Shipment Details</h2>
 
-      <input
-        type="number"
-        name="scheduled_days"
-        placeholder="Scheduled Days"
-        value={form.scheduled_days}
-        onChange={handleChange}
-      />
+      <div
+  style={{
+    display: "flex",
+    gap: "10px",
+    justifyContent: "center",
+    marginTop: "15px",
+  }}
+>
+  <div style={{ display: "flex", flexDirection: "column", width: "210px" }}>
+    <label style={{ fontWeight: "bold", marginBottom: "6px" }}>
+      Scheduled Days
+    </label>
 
-      <input
-        type="number"
-        name="quantity"
-        placeholder="Quantity"
-        value={form.quantity}
-        onChange={handleChange}
-      />
+    <input
+      type="number"
+      name="scheduled_days"
+      placeholder="Enter scheduled days"
+      value={form.scheduled_days}
+      onChange={handleChange}
+    />
+  </div>
+
+  <div style={{ display: "flex", flexDirection: "column", width: "210px" }}>
+    <label style={{ fontWeight: "bold", marginBottom: "6px" }}>
+      Order Quantity
+    </label>
+
+    <input
+      type="number"
+      name="quantity"
+      placeholder="Enter order quantity"
+      value={form.quantity}
+      onChange={handleChange}
+    />
+  </div>
+</div>
 
       <br />
       <br />
