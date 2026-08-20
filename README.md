@@ -318,6 +318,11 @@ SupplyPrescript/
 
 ## Backend
 
+Install dependencies:
+
+```powershell
+pip install -r requirements.txt
+
 Open a terminal:
 
 ```powershell
@@ -426,3 +431,45 @@ The project extends a traditional ML prediction system by connecting predictions
 **AI-Powered Supply Chain Decision Support System**
 
 **Data Analytics Internship — Month 1 Project**
+
+---
+
+# 📸 Project Screenshots
+
+## Dashboard
+
+![Dashboard](frontend/screenshots/01-dashboard.png.png)
+
+## Low Risk & AI Recommendations
+
+![Low Risk Recommendations](frontend/screenshots/02%20Lowrisk%20%26%20ai-recommendations.png.png)
+
+## High Risk & AI Recommendations
+
+![High Risk Recommendations](frontend/screenshots/03%20High%20risk%20%26%20ai-recommendations.png.png)
+
+## Decision History
+
+![Decision History](frontend/screenshots/04-decision-history.png.png)
+
+## Analytics
+
+![Analytics](frontend/screenshots/05-analytics.png.png)
+
+## Continuous Learning
+
+![Continuous Learning](frontend/screenshots/06-continuous-learning.png.png)
+
+## Decision Feedback
+
+![Decision Feedback](frontend/screenshots/07-decision-feedback.png.png)
+
+## Decision ROI
+
+![Decision ROI](frontend/screenshots/08-decision-roi.png.png)
+
+## Additional Output
+
+![Output Part 1](frontend/screenshots/output%20part%201.png)
+
+![Output Part 2](frontend/screenshots/output%20part%202.png)
